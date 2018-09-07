@@ -1,4 +1,5 @@
 import java.util.Random;
+import java.util.Arrays;
 
 
 public class Practice03Test {
@@ -53,12 +54,56 @@ public class Practice03Test {
 
 
 	public int find_min_iterative () {
-		// TODO: Fill in this iterative function.
+		int maxSoFar = 0;
+		for (int i=1;i < this.arr.length;i++) {
+			if (this.arr[i] < this.arr[maxSoFar]) {
+				maxSoFar=i;
+			}
+		}
+		return maxSoFar;
 	}
 
 
 	public int find_min_recursive () {
-		// TODO: Fill in this recursive function.
+		return myBetterFindMinRecursive(this.arr,0,0);
+	}
+
+	// Made my own function to do this
+	private int myFindMinRecursive(double[] arr, int maxIndexSearched, int indexWhereMinValueFound) {
+		//base  case:
+		if (arr.length-1 <= maxIndexSearched) {
+			return indexWhereMinValueFound;
+		}
+
+		// Iterative step:
+		else {
+			if (arr[maxIndexSearched+1] < arr[indexWhereMinValueFound]) {
+				return(myFindMinRecursive(arr,maxIndexSearched+1,maxIndexSearched+1));
+			} else {
+				return (myFindMinRecursive(arr,maxIndexSearched+1,indexWhereMinValueFound));
+			}
+		}
+	}
+
+	private int myBetterFindMinRecursive(double[] arr) {
+
+		// Base Case: (if arr has 1 or fewer elements)
+
+
+		// Iterative step:
+		double[] array1 = Arrays.copyOfRange(arr, 0, arr.length/2);
+		double[] array2 = Arrays.copyOfRange(arr, arr.length/2, arr.length);
+
+		int minFirstHalf = myBetterFindMinRecursive(array1);
+		int minSecondHalf = myBetterFindMinRecursive(array2) + arr.length/2;
+
+		if (minFirstHalf > minSecondHalf) {
+			return minSecondHalf;
+		} else {
+			return minFirstHalf;
+		}
+
+		
 	}
 
 

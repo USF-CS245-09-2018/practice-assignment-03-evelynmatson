@@ -1,0 +1,36 @@
+find_min_iterative: O(n)
+
+public int find_min_iterative () {
+		int maxSoFar = 0;										// O(1)
+		for (int i=1;i < this.arr.length;i++) {					// O(1)
+			if (this.arr[i] < this.arr[maxSoFar]) {				// O(n)
+				maxSoFar=i;										// O(n)
+			}
+		}
+		return maxSoFar;										// O(1)
+	}
+
+															// Sum: O(2n+3)
+															// 	 = O(n)
+
+
+
+find_min_recursive:
+
+	private int myFindMinRecursive(double[] arr, int maxIndexSearched, int indexWhereMinValueFound) {
+		//base  case:
+		if (arr.length-1 <= maxIndexSearched) {																	// O(1)
+			return indexWhereMinValueFound;																		// O(1)
+		}
+
+		// Iterative step:
+		else {																									// O(1)
+			if (arr[maxIndexSearched+1] < arr[indexWhereMinValueFound]) {										// O(1)
+				return(myFindMinRecursive(arr,maxIndexSearched+1,maxIndexSearched+1));							// ???
+			} else {																							// O(1)
+				return (myFindMinRecursive(arr,maxIndexSearched+1,indexWhereMinValueFound));					// ???
+			}
+		}
+	}
+
+																										Without the recursive parts, the algorithm is O(5) == O(1). It recurses the same number of times as the size of the input, n. So the function runs n times, which makes the overall running time O(n)
