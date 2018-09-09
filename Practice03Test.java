@@ -65,7 +65,7 @@ public class Practice03Test {
 
 
 	public int find_min_recursive () {
-		return myBetterFindMinRecursive(this.arr,0,0);
+		return myBetterFindMinRecursive(this.arr);
 	}
 
 	// Made my own function to do this
@@ -88,17 +88,29 @@ public class Practice03Test {
 	private int myBetterFindMinRecursive(double[] arr) {
 
 		// Base Case: (if arr has 1 or fewer elements)
-
+		if (arr.length==1) {
+			return 0;
+		} else if (arr.length==0) {
+			return -1;
+		}
 
 		// Iterative step:
 		double[] array1 = Arrays.copyOfRange(arr, 0, arr.length/2);
 		double[] array2 = Arrays.copyOfRange(arr, arr.length/2, arr.length);
 
-		int minFirstHalf = myBetterFindMinRecursive(array1);
-		int minSecondHalf = myBetterFindMinRecursive(array2) + arr.length/2;
+		// DEBUG CODE
+		// System.out.println("array1 = " + Arrays.toString(array1));
+		// System.out.println("array2 = " + Arrays.toString(array2));
 
-		if (minFirstHalf > minSecondHalf) {
-			return minSecondHalf;
+		int minFirstHalf = myBetterFindMinRecursive(array1);
+		int minSecondHalf = myBetterFindMinRecursive(array2);
+
+		// DEBUG CODE
+		// System.out.println("minFirstHalf (array1) = " + minFirstHalf);
+		// System.out.println("minSecondHalf (array2) = " + minSecondHalf);
+
+		if (array1[minFirstHalf] > array2[minSecondHalf]) {
+			return minSecondHalf+arr.length/2;
 		} else {
 			return minFirstHalf;
 		}
